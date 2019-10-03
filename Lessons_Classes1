@@ -1,3 +1,4 @@
+#just a small excersise in using Python classes
 class Person:
     def __init__(self, name):
         self.name=name
