@@ -1,0 +1,16 @@
+class Person:
+    def __init__(self, name):
+        self.name=name
+
+    def say_hi(self):
+        print("hello, my name is not Mud, my name is", self.name)
+
+
+
+
+p=Person('Les Claypool')
+p.say_hi()
+
+#or alternatively:call the clas with the argument, then the say_hi method in one line
+
+Person("Jimmy Go").say_hi()
