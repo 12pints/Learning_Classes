@@ -12,6 +12,6 @@ class Person:
 p=Person('Les Claypool')
 p.say_hi()
 
-#or alternatively:call the clas with the argument, then the say_hi method in one line
+#or alternatively:call the class, with the argument, then the say_hi method in one line
 
 Person("Jimmy Go").say_hi()
