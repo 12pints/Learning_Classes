@@ -9,7 +9,7 @@
 def make_abba(str1, str2):
     # output=((str1+str2),2)
     
-    output=str((str1+str2)*2)
+    output=str(str1+str2+str2+str1)
     return output
     
     
