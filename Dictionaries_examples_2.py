@@ -20,16 +20,16 @@ print(type(mySplitString))  # <----this shows its now a list
 wordDictionary={}   # create empty dictionary
 for word in mySplitString:    # For each word in splitString list, iterate over it
     if word in wordDictionary:     # if the word is already in the dictionary, add 1 to the value, cos its found again
-        wordDictionary[word] +=1
+        wordDictionary[word] += 1
     else:
-        wordDictionary[word]=1     # if the works is not YET in the dictionary, make count 1, cos its new
+        wordDictionary[word] = 1     # if the works is not YET in the dictionary, make count 1, cos its new
 
 print(wordDictionary)
 
 # if we wanted to write that to a file:
 
-out_filename='Dictionaries_examples_2_output.txt'
-f=open(out_filename,'w')
+out_filename = 'Dictionaries_examples_2_output.txt'
+f = open(out_filename,'w')
 print(wordDictionary, file=f)
 f.close()
 
