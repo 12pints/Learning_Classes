@@ -1,35 +1,55 @@
-#working Feb 18 2020
-#let write some script that goes over some text and counts all words to see how often the individually occur
+# working Feb 18 2020
+# let write some script that goes over some text and counts all words to see how often the individually occur
 
-myString="Schonis heeft tijdens een debat over 'duurzaam vervoer' staatssecretaris Van Veldhoven, gevraagd om te gaan praten met de branche. Hij ziet graag dat de populaire bestelwebsites als Bol.com en Zalando aan klanten laten zien hoeveel CO2-uitstoot er gepaard gaat met een rit."
+import csv
+
+myString = "Schonis heeft tijdens een debat over 'duurzaam vervoer' staatssecretaris Van Veldhoven, gevraagd om te gaan praten met de branche. Hij ziet graag dat de populaire bestelwebsites als Bol.com en Zalando aan klanten laten zien hoeveel CO2-uitstoot er gepaard gaat met een rit."
 
 # first thing we will need to do is remove the text from any garbage, so we can turn it into a dictionary
 # each word is a dictionary key, with a value: its occurrence
-myString=myString.replace(".","")  # remove periods
-myString=myString.replace(",","")  # remove commas
-myString=myString.replace("'","")  # remove apostrophies
-myString=myString.lower()  # turn into lower case
+myString = myString.replace(".", "")  # remove periods
+myString = myString.replace(",", "")  # remove commas
+myString = myString.replace("'", "")  # remove apostrophes
+myString = myString.lower()  # turn into lower case
 
-mySplitString=myString.split()  # split by spaces
+mySplitString = myString.split()  # split by spaces
 # so now you actually have a list containing all the words
-print(mySplitString)   # <----can be used to test a preliminary result
+print(mySplitString)  # <----can be used to test a preliminary result
 print(type(mySplitString))  # <----this shows its now a list
 
 # now lets create a dictionary
 
-wordDictionary={}   # create empty dictionary
-for word in mySplitString:    # For each word in splitString list, iterate over it
-    if word in wordDictionary:     # if the word is already in the dictionary, add 1 to the value, cos its found again
+wordDictionary = {}  # create empty dictionary
+for word in mySplitString:  # For each word in splitString list, iterate over it
+    if word in wordDictionary:  # if the word is already in the dictionary, add 1 to the value, cos its found again
         wordDictionary[word] += 1
     else:
-        wordDictionary[word] = 1     # if the works is not YET in the dictionary, make count 1, cos its new
+        wordDictionary[word] = 1  # if the word is not YET in the dictionary, make count 1, because its new
 
 print(wordDictionary)
-
+print(type(wordDictionary))
 # if we wanted to write that to a file:
 
 out_filename = 'Dictionaries_examples_2_output.txt'
-f = open(out_filename,'w')
-print(wordDictionary, file=f)
-f.close()
+f = open(out_filename, 'w')
+# print(wordDictionary, file=f)
+# f.close()
 
+# this doesnt look nice as it prints out the dictionary as one line
+
+# toCSV = [wordDictionary]
+# keys = toCSV[0].keys()0c
+# with open('Dictionaries_examples_2_output', 'w', newline='') as output_file:  # newline='' means no blank line
+#     dict_writer = csv.DictWriter(output_file, keys)
+#     dict_writer.writeheader()
+#     dict_writer.writerows(toCSV)
+
+print("WORD:\t\tOccurrence:", file=f)
+
+# for key, value in wordDictionary.items():
+#     print((key, value), end="az67", file=f)
+
+# for key, value in wordDictionary:
+#    print("{}\t\t{}".format(key[0],value[1]), file=f)
+
+f.close()
