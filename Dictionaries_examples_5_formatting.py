@@ -21,6 +21,6 @@ for key, value in dict.items():
 # we will use the items attribute that we apply to a dictionary, using double indent \t\t or tab
 
 for k , v in dict.items():
-        print(k+"\t\t", v)
+        print((k+",", v),file=f)
 
 f.close()
