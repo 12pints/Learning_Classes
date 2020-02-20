@@ -32,24 +32,8 @@ print(type(wordDictionary))
 
 out_filename = 'Dictionaries_examples_2_output.txt'
 f = open(out_filename, 'w')
-# print(wordDictionary, file=f)
-# f.close()
+print(wordDictionary, file=f)
+f.close()
 
 # this doesnt look nice as it prints out the dictionary as one line
 
-# toCSV = [wordDictionary]
-# keys = toCSV[0].keys()0c
-# with open('Dictionaries_examples_2_output', 'w', newline='') as output_file:  # newline='' means no blank line
-#     dict_writer = csv.DictWriter(output_file, keys)
-#     dict_writer.writeheader()
-#     dict_writer.writerows(toCSV)
-
-print("WORD:\t\tOccurrence:", file=f)
-
-# for key, value in wordDictionary.items():
-#     print((key, value), end="az67", file=f)
-
-# for key, value in wordDictionary:
-#    print("{}\t\t{}".format(key[0],value[1]), file=f)
-
-f.close()

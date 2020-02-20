@@ -12,3 +12,5 @@ def dict2txt(D, writefile, column1='-', delim='\t', width=20, order=['mix','meow
       row = ['{!s:{}}'.format(i,width)]
       for k in order: row.append('{!s:{}}'.format(D[i][k],width))
       writer.writerow(row)
+  f.close()
+
