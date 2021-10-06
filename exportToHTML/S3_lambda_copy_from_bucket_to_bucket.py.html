@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>S3_lambda_copy_from_bucket_to_bucket.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7ec3e6;}
+.s1 { color: #ebebeb;}
+.s2 { color: #cc7832;}
+.s3 { color: #54b33e;}
+.s4 { color: #ed864a; font-weight: bold;}
+.s5 { color: #33ccff; font-weight: bold;}
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+</style>
+</head>
+<body bgcolor="#131314">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+S3_lambda_copy_from_bucket_to_bucket.py</font>
+</center></td></tr></table>
+<pre><a name="l1"><span class="ln">1    </span></a><span class="s0"># working 17 august 2021</span>
+<a name="l2"><span class="ln">2    </span></a><span class="s0"># this code is triggered by an S3 ObjetcPUT event.</span>
+<a name="l3"><span class="ln">3    </span></a><span class="s0"># as soon as the object is added to the source bucket, it will copy it to the destination bucket</span>
+<a name="l4"><span class="ln">4    </span></a><span class="s0"># source:  https://www.powerupcloud.com/copying-objects-using-aws-lambda-based-on-s3-events-part-1/</span>
+<a name="l5"><span class="ln">5    </span></a>
+<a name="l6"><span class="ln">6    </span></a><span class="s2">import </span><span class="s1">json</span>
+<a name="l7"><span class="ln">7    </span></a><span class="s2">import </span><span class="s1">boto3</span>
+<a name="l8"><span class="ln">8    </span></a>
+<a name="l9"><span class="ln">9    </span></a><span class="s0"># boto3 S3 initialization</span>
+<a name="l10"><span class="ln">10   </span></a><span class="s1">s3_client = boto3.client(</span><span class="s3">&quot;s3&quot;</span><span class="s1">)</span>
+<a name="l11"><span class="ln">11   </span></a>
+<a name="l12"><span class="ln">12   </span></a><span class="s2">def </span><span class="s1">lambda_handler(event</span><span class="s4">, </span><span class="s1">context):</span>
+<a name="l13"><span class="ln">13   </span></a>   <span class="s1">destination_bucket_name = </span><span class="s3">'danish-tst-backup-bucket'</span>
+<a name="l14"><span class="ln">14   </span></a>
+<a name="l15"><span class="ln">15   </span></a>   <span class="s0"># event is a dictionary and contains all information about newly uploaded object</span>
+<a name="l16"><span class="ln">16   </span></a>   <span class="s1">print(</span><span class="s3">&quot;Event :&quot;</span><span class="s4">, </span><span class="s1">event)</span>
+<a name="l17"><span class="ln">17   </span></a>
+<a name="l18"><span class="ln">18   </span></a>   <span class="s0"># Bucket Name where file was uploaded, obtained from event dictionary</span>
+<a name="l19"><span class="ln">19   </span></a>   <span class="s1">source_bucket_name = event[</span><span class="s3">'Records'</span><span class="s1">][</span><span class="s5">0</span><span class="s1">][</span><span class="s3">'s3'</span><span class="s1">][</span><span class="s3">'bucket'</span><span class="s1">][</span><span class="s3">'name'</span><span class="s1">]</span>
+<a name="l20"><span class="ln">20   </span></a>
+<a name="l21"><span class="ln">21   </span></a>   <span class="s0"># Filename of object (with path), obtained from event dictionary</span>
+<a name="l22"><span class="ln">22   </span></a>   <span class="s1">file_key_name = event[</span><span class="s3">'Records'</span><span class="s1">][</span><span class="s5">0</span><span class="s1">][</span><span class="s3">'s3'</span><span class="s1">][</span><span class="s3">'object'</span><span class="s1">][</span><span class="s3">'key'</span><span class="s1">]</span>
+<a name="l23"><span class="ln">23   </span></a>
+<a name="l24"><span class="ln">24   </span></a>   <span class="s0"># Copy Source Object</span>
+<a name="l25"><span class="ln">25   </span></a>   <span class="s1">copy_source_object = {</span><span class="s3">'Bucket'</span><span class="s1">: source_bucket_name</span><span class="s4">, </span><span class="s3">'Key'</span><span class="s1">: file_key_name}</span>
+<a name="l26"><span class="ln">26   </span></a>
+<a name="l27"><span class="ln">27   </span></a>   <span class="s0"># S3 copy object operation, note file_key_name remains same in source and destination</span>
+<a name="l28"><span class="ln">28   </span></a>   <span class="s1">s3_client.copy_object(CopySource=copy_source_object</span><span class="s4">, </span><span class="s1">Bucket=destination_bucket_name</span><span class="s4">, </span><span class="s1">Key=file_key_name)</span>
+<a name="l29"><span class="ln">29   </span></a>
+<a name="l30"><span class="ln">30   </span></a>   <span class="s2">return </span><span class="s1">{</span>
+<a name="l31"><span class="ln">31   </span></a>       <span class="s3">'statusCode'</span><span class="s1">: </span><span class="s5">200</span><span class="s4">,</span>
+<a name="l32"><span class="ln">32   </span></a>       <span class="s3">'body'</span><span class="s1">: json.dumps(</span><span class="s3">'Hello from S3 events Lambda!'</span><span class="s1">)</span>
+<a name="l33"><span class="ln">33   </span></a>   <span class="s1">}</span></pre>
+</body>
+</html>
